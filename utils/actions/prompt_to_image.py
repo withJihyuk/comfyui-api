@@ -2,16 +2,15 @@ from api.api_helpers import generate_image_by_prompt
 from utils.helpers.randomize_seed import generate_random_15_digit_number
 from api.open_websocket import open_websocket_connection
 import json
-def prompt_to_image(workflow, positve_prompt, negative_prompt='', save_previews=False):
+def prompt_to_image(workflow, model_image_path, cloth_image_path, save_previews=False):
   prompt = json.loads(workflow)
-  id_to_class_type = {id: details['class_type'] for id, details in prompt.items()}
-  k_sampler = [key for key, value in id_to_class_type.items() if value == 'KSampler'][0]
-  prompt.get(k_sampler)['inputs']['seed'] = generate_random_15_digit_number()
-  postive_input_id = prompt.get(k_sampler)['inputs']['positive'][0]
-  prompt.get(postive_input_id)['inputs']['text'] = positve_prompt
 
-  if negative_prompt != '':
-    negative_input_id = prompt.get(k_sampler)['inputs']['negative'][0]
-    prompt.get(negative_input_id)['inputs']['text'] = positve_prompt
+  model_loader = [node for node in prompt['nodes'] if node['id'] == 1 and node['type'] == 'LoadImage'][0]
+  model_filename = model_image_path.split('/')[-1]
+  model_loader['widgets_values'][0] = model_filename
+
+  cloth_loader = [node for node in prompt['nodes'] if node['id'] == 4 and node['type'] == 'LoadImage'][0]
+  cloth_filename = cloth_image_path.split('/')[-1]
+  cloth_loader['widgets_values'][0] = cloth_filenameㅌ
 
   generate_image_by_prompt(prompt, './output/', save_previews)
