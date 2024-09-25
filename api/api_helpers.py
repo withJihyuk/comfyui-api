@@ -18,11 +18,15 @@ def generate_image_by_prompt(prompt, output_path, save_previews=False):
     ws.close()
 
 
-def generate_image_by_prompt_and_image(prompt, output_path, input_path1, filename1, input_path2, filename2,
-                                       save_previews=False):
+import os
+
+
+def generate_image_by_prompt_and_image(prompt, output_path, input_path1, input_path2, save_previews=False):
     try:
         ws, server_address, client_id = open_websocket_connection()
+        filename1 = os.path.basename(input_path1)
         upload_image(input_path1, filename1, server_address, client_id)
+        filename2 = os.path.basename(input_path2)
         upload_image(input_path2, filename2, server_address, client_id)
         prompt_id = queue_prompt(prompt, client_id, server_address)['prompt_id']
         track_progress(prompt, ws, prompt_id)
