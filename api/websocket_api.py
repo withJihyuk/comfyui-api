@@ -6,11 +6,11 @@ from requests_toolbelt import MultipartEncoder
 def upload_image(input_path, name, server_address, image_type="input", overwrite=False):
 	with open(input_path, 'rb') as file:
 		multipart_data = MultipartEncoder(
-      fields= {
-        'image': (name, file, 'image/png'),
-        'type': image_type,
-        'overwrite': str(overwrite).lower()
-      }
+          fields= {
+            'image': (name, file, 'image/png'),
+            'type': image_type,
+            'overwrite': str(overwrite).lower()
+          }
 		)
 
 		data = multipart_data
