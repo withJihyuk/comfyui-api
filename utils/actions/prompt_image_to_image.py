@@ -1,4 +1,5 @@
 from api.api_helpers import generate_image_by_prompt_and_image
+from utils.helpers.randomize_seed import generate_random_15_digit_number
 import json
 
 
@@ -15,12 +16,13 @@ def prompt_image_to_image(workflow, model_image_path, cloth_image_path, load_oot
         model_image_key = load_image_keys[0]
         cloth_image_key = load_image_keys[1]
 
-        # Set model_image path
         model_image_filename = model_image_path.split('/')[-1]
         prompt.get(model_image_key)['inputs']['image'] = model_image_filename
 
-        # Set cloth_image path
         cloth_image_filename = cloth_image_path.split('/')[-1]
         prompt.get(cloth_image_key)['inputs']['image'] = cloth_image_filename
+
+    k_sampler_key = [key for key, value in id_to_class_type.items() if value == 'OOTDGenerate'][0]
+    prompt.get(k_sampler_key)['inputs']['seed'] = generate_random_15_digit_number()
 
     generate_image_by_prompt_and_image(prompt, './output/', model_image_filename, cloth_image_filename, save_previews)
