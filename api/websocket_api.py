@@ -8,7 +8,7 @@ def upload_image(input_path, name, server_address, image_type="input", overwrite
 		multipart_data = MultipartEncoder(
           fields= {
             'image': (name, file, 'image/*'),
-            'type': image_type,
+            # 'type': image_type,
             'overwrite': str(overwrite).lower()
           }
 		)
