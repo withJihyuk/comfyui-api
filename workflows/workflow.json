@@ -1,0 +1,79 @@
+{
+    "1": {
+      "inputs": {
+        "image": "model_1.png",
+        "upload": "image"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "Load Image"
+      }
+    },
+    "3": {
+      "inputs": {
+        "seed": 626872493253661,
+        "steps": 20,
+        "cfg": 2.0300000000000002,
+        "category": "Upper body",
+        "pipe": [
+          "10",
+          0
+        ],
+        "cloth_image": [
+          "4",
+          0
+        ],
+        "model_image": [
+          "1",
+          0
+        ]
+      },
+      "class_type": "OOTDGenerate",
+      "_meta": {
+        "title": "OOTDiffusion Generate"
+      }
+    },
+    "4": {
+      "inputs": {
+        "image": "cloth_1.jpg",
+        "upload": "image"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "Load Image"
+      }
+    },
+    "5": {
+      "inputs": {
+        "images": [
+          "3",
+          0
+        ]
+      },
+      "class_type": "PreviewImage",
+      "_meta": {
+        "title": "Preview Image"
+      }
+    },
+    "7": {
+      "inputs": {
+        "images": [
+          "3",
+          1
+        ]
+      },
+      "class_type": "PreviewImage",
+      "_meta": {
+        "title": "Preview Image"
+      }
+    },
+    "10": {
+      "inputs": {
+        "type": "Half body"
+      },
+      "class_type": "LoadOOTDPipelineHub",
+      "_meta": {
+        "title": "Load OOTDiffusion from Hub🤗"
+      }
+    }
+  }

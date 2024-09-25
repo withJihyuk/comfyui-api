@@ -2,8 +2,6 @@ import json
 from PIL import Image
 import io
 import os
-
-# Assuming the import paths are correct and the methods are defined elsewhere:
 from api.websocket_api import queue_prompt, get_history, get_image, upload_image, clear_comfy_cache
 from api.open_websocket import open_websocket_connection
 
@@ -17,14 +15,11 @@ def generate_image_by_prompt(prompt, output_path, save_previews=False):
   finally:
     ws.close()
 
-
-import os
-
-
 def generate_image_by_prompt_and_image(prompt, output_path, input_path1, input_path2, save_previews=False):
     try:
         ws, server_address, client_id = open_websocket_connection()
         filename1 = os.path.basename(input_path1)
+        print(input_path1, filename1)
         upload_image(input_path1, filename1, server_address, client_id)
         filename2 = os.path.basename(input_path2)
         upload_image(input_path2, filename2, server_address, client_id)
