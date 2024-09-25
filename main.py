@@ -1,7 +1,10 @@
-from utils.actions.prompt_to_image import prompt_to_image
+
 from utils.actions.load_workflow import load_workflow
 from api.api_helpers import clear
 import sys
+
+from utils.actions.prompt_image_to_image import prompt_image_to_image
+
 
 def main():
     try:
@@ -9,7 +12,7 @@ def main():
       model_image_path = ""
       cloth_image_path = ""
       for item in range(1, 11):
-        prompt_to_image(workflow, model_image_path, cloth_image_path, save_previews=True)
+        prompt_image_to_image(workflow, model_image_path, cloth_image_path, save_previews=True)
     except Exception as e:
       print(f"An error occurred: {e}")
       exit_program()

@@ -17,16 +17,20 @@ def generate_image_by_prompt(prompt, output_path, save_previews=False):
   finally:
     ws.close()
 
-def generate_image_by_prompt_and_image(prompt, output_path, input_path, filename, save_previews=False):
-  try:
-    ws, server_address, client_id = open_websocket_connection()
-    upload_image(input_path, filename, server_address, client_id)
-    prompt_id = queue_prompt(prompt, client_id, server_address)['prompt_id']
-    track_progress(prompt, ws, prompt_id)
-    images = get_images(prompt_id, server_address, save_previews)
-    save_image(images, output_path, save_previews)
-  finally:
-    ws.close()
+
+def generate_image_by_prompt_and_image(prompt, output_path, input_path1, filename1, input_path2, filename2,
+                                       save_previews=False):
+    try:
+        ws, server_address, client_id = open_websocket_connection()
+        upload_image(input_path1, filename1, server_address, client_id)
+        upload_image(input_path2, filename2, server_address, client_id)
+        prompt_id = queue_prompt(prompt, client_id, server_address)['prompt_id']
+        track_progress(prompt, ws, prompt_id)
+        images = get_images(prompt_id, server_address, save_previews)
+        save_image(images, output_path, save_previews)
+    finally:
+        ws.close()
+
 
 def save_image(images, output_path, save_previews):
     for itm in images:
